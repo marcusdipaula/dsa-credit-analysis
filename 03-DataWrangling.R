@@ -1,5 +1,12 @@
 # 03-DataWrangling
-#
+
+# ---
+# title: Data wrangling
+# date: 2019-06-28
+# author: Marcus Di Paula
+# github: github.com/marcusdipaula/
+# linkedin: linkedin.com/in/marcusdipaula/
+# ---
 
 # install.packages("plotly")
 library(plotly)

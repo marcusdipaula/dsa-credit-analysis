@@ -1,4 +1,12 @@
-# Project Summary ----
+# 01-SummaryOfProject
+
+# ---
+# title: Project Summary
+# date: 2019-06-28
+# author: Marcus Di Paula
+# github: github.com/marcusdipaula/
+# linkedin: linkedin.com/in/marcusdipaula/
+# ---
 
 
 #### Framework of reference ####
@@ -67,6 +75,6 @@
 # (attribute/variable) that represents the historical definition for each concession (row).
 #
 # * Original dataset: https://archive.ics.uci.edu/ml/datasets/Statlog+%28German+Credit+Data%29
-# ** Dataset with addition: link
+# ** Dataset with addition: https://github.com/marcusdipaula/dsa-credit-analysis/blob/master/credit.csv
 
 

@@ -1,5 +1,14 @@
 # 02-DataCollect
 
+# ---
+# title: Data load
+# date: 2019-06-28
+# author: Marcus Di Paula
+# github: github.com/marcusdipaula/
+# linkedin: linkedin.com/in/marcusdipaula/
+# ---
+
+
 # 1.Problem: How to predict clients as good or bad for credit concession?
 # This is a bivariate classification task. More information about it can be found 
 # here: https://towardsdatascience.com/machine-learning-classifiers-a5cc4e1b0623
