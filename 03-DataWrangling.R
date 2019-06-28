@@ -353,7 +353,7 @@ prediction_v2 <- tibble(observed = test_subset$Credit_Rating,
 
 # Looking the results of predictions (similar to a confusion matrix)
 table(prediction_v2) %>% 
-  as_tibble()
+      as_tibble()
 
 # Viewing the confusion matrix of caret package
 confusionMatrix(prediction_v2$predicted, prediction_v2$observed) # This order must be followed. See more at help of this function
