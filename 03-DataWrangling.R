@@ -246,8 +246,8 @@ test_subset %>%
 # 7. training a Random Forest model with the variables choosen before
 model_rf <- train(Credit_Rating ~ Checking_Account +
                                   Duration_Month +
-                                  Credit_History +
                                   Credit_Amount +
+                                  Credit_History +
                                   Savings_Account +
                                   Property +
                                   Employment,
