@@ -46,7 +46,7 @@ The features of each attribute (or variable) are its kind/type/characteristic, e
 
 <img src="Plots/BoxPlot_04.png" />
 
-## Some analysis on feature selection, correlations and ROC curve of the first model
+## Some analysis on feature selection, correlations and ROC curve of a first and second models
 
 <img src="Plots/Predictors_ranking.png" />
 
