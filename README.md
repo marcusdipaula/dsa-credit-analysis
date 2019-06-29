@@ -54,3 +54,8 @@ The features of each attribute (or variable) are its kind/type/characteristic, e
 
 <img src="Plots/ROC_first_model.png" />
 
+### Confusion Matrix of the prediction with the first model
+<img src="Plots/ConfusionMatrix_prediction_1st_model.png" />
+
+### Confusion Matrix of the prediction with the second model (with Cost Function: 0, 1.5, 0.5, 0)
+<img src="Plots/ConfusionMatrix_prediction_2nd_model_with_CostFunc.png" />
