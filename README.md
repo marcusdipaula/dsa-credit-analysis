@@ -1,4 +1,4 @@
-# Credit Risk Analysis (mini project)
+# Credit Risk Analysis (mini project) v1.0
 
 Mini project proposed by the [Data Science Academy](https://www.datascienceacademy.com.br/), regarding credit analysis using R language.
 
