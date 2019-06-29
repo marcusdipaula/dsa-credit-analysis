@@ -151,6 +151,7 @@ randomForest::varImpPlot(model_rf.p)
 # Property
 # Employment
 
+  # Getting the number of each column
 # sort(match(c("Credit_Rating",
 #         "Checking_Account" ,
 #         "Duration_Month" ,
@@ -163,6 +164,7 @@ randomForest::varImpPlot(model_rf.p)
 # 
 # str(credit[,c(1,  2 , 3 , 5 , 6 , 7, 12, 21)])
 
+  # Ploting the histogram and correlation of each variable
 psych::pairs.panels(credit[,c(1,  2 , 3 , 5 , 6 , 7, 12, 21)])
 
   # Testing training a model with these variables
@@ -259,6 +261,27 @@ model_rf <- train(Credit_Rating ~ Checking_Account +
 model_rf$results
 model_rf$finalModel 
 
+# print(model_rf)
+# Random Forest 
+# 
+# 420 samples
+# 7 predictor
+# 2 classes: 'Good', 'Bad' 
+# 
+# No pre-processing
+# Resampling: Bootstrapped (25 reps) 
+# Summary of sample sizes: 420, 420, 420, 420, 420, 420, ... 
+# Resampling results across tuning parameters:
+#   
+# mtry  Accuracy   Kappa    
+# 2     0.6572401  0.3179620
+# 11    0.6566626  0.3161356
+# 20    0.6444198  0.2910512
+# 
+# Accuracy was used to select the optimal model using the largest value.
+# The final value used for the model was mtry = 2.
+
+
 # Using the model to predict the test_subset
 prediction <- tibble(observed = test_subset$Credit_Rating,
                      predicted = predict(model_rf, newdata = test_subset))
@@ -330,11 +353,12 @@ model_rf_v2  <- C5.0(Credit_Rating ~ Checking_Account +
                                      Savings_Account +
                                      Property +
                                      Employment,
-                     data = as.data.frame(train_subset),  
+                     data = train_subset,  
                      trials = 100,
                      costs = Cost_func); rm(Cost_func)
 
 # print(model_rf_v2)
+print(model_rf_v2)
 
 # sort(match(c("Credit_Rating", 
 #         "Checking_Account" , 
