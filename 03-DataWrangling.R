@@ -323,17 +323,24 @@ prob_pred <- bind_cols(predict(model_rf,
 #   
 
 # ploting the ROC Curve
-ggplot(prob_pred, 
-       aes(d = observed, 
-           m = Good)) + 
-  geom_roc() +
-  style_roc() 
+basicROC <- ggplot(prob_pred, 
+                   aes(d = observed, 
+                       m = Good)) + 
+            geom_roc() 
+
+
+basicROC + 
+  style_roc(theme = theme_grey) +
+  theme(axis.text = element_text(colour = "blue")) +
+  ggtitle("ROC and AUC") + 
+  annotate("text", x = .75, y = .25, 
+           label = paste("AUC =", round(calc_auc(basicROC)$AUC, 2))) +
+  scale_x_continuous("1 - Specificity", breaks = seq(0, 1, by = .1))
+
 
 # Interactive ROC
-plot_interactive_roc(ggplot(as.data.frame(prob_pred), 
-                            aes(d = observed, 
-                                m = Good)) + 
-                     geom_roc() )
+plot_interactive_roc(basicROC + 
+                       style_roc())
 
 
 # 9. Trying to optimize the model
