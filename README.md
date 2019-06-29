@@ -52,7 +52,7 @@ The features of each attribute (or variable) are its kind/type/characteristic, e
 
 <img src="Plots/Choosen_Variables_Correlations.png" />
 
-<img src="Plots/ROC_first_model.png" />
+<img src="Plots/AUROC_first_model.png" />
 
 ### Confusion Matrix of the prediction with the first model
 <img src="Plots/ConfusionMatrix_prediction_1st_model.png" />
