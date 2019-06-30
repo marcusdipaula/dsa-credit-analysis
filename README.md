@@ -21,7 +21,7 @@ The features of each attribute (or variable) are its kind/type/characteristic, e
 
 ## Here are some results of this short analysis:
 
-### Target variable distribution
+### Target variable distribution before balancing
 <img src="Plots/BarPlot_Target_variable_distribution.png" />
 
 ### Good or Bad credit count by some categorical variables
