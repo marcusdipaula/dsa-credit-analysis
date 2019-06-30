@@ -2,7 +2,7 @@
 
 Mini project proposed by the [Data Science Academy](https://www.datascienceacademy.com.br/), regarding credit analysis using R language.
 
-How to predict clients as good or bad for credit concession?
+How to predict a good or bad credit concession based on each client's profile?
 This is a classification task. More information about it can be found here: https://towardsdatascience.com/machine-learning-classifiers-a5cc4e1b0623
 
 1. <b>Context:</b> The approach to this question should consider that it will be presented to the bank decision makers.
