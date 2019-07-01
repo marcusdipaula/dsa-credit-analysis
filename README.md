@@ -18,13 +18,25 @@ The features of each attribute (or variable) are its kind/type/characteristic, e
 \** Dataset with addition: https://github.com/marcusdipaula/dsa-credit-analysis/blob/master/credit.csv
 
 
+### Summary
+
+1. Target variable distribution before balancing
+2. Good or Bad credit count (BarPlots) by some categorical variables
+3. Good or Bad credit distribution (BoxPlots) by some categorical variables
+4. Predictors ranking
+5. Choosen variables correlations
+6. AUC of ROC (first model)
+7. Confusion Matrix of a first model
+8. Confusion Matrix of a second model (with Cost Function: 0, 1.5, 0.5, 0)
+
+
 
 ## Here are some results of this short analysis:
 
-### Target variable distribution before balancing
+### 1. Target variable distribution before balancing
 <img src="Plots/BarPlot_Target_variable_distribution.png" />
 
-### Good or Bad credit count by some categorical variables
+### 2. Good or Bad credit count by some categorical variables
 
 <img src="Plots/BarPlot_01.png" />
 
@@ -36,7 +48,7 @@ The features of each attribute (or variable) are its kind/type/characteristic, e
 
 <img src="Plots/BarPlot_05.png" />
 
-### Good or Bad credit distribution by some categorical variables
+### 3. Good or Bad credit distribution by some categorical variables
 
 <img src="Plots/BoxPlot_01.png" />
 
@@ -48,14 +60,17 @@ The features of each attribute (or variable) are its kind/type/characteristic, e
 
 ## Some analysis on feature selection, correlations and ROC curve of a first and second models
 
+### 4. Predictors ranking
 <img src="Plots/Predictors_ranking.png" />
 
+### 5. Choosen variables correlations
 <img src="Plots/Choosen_Variables_Correlations.png" />
 
+### 6. AUC of ROC (first model)
 <img src="Plots/AUROC_first_model.png" />
 
-### Confusion Matrix of a first model
+### 7. Confusion Matrix of the first model
 <img src="Plots/ConfusionMatrix_prediction_1st_model.png" />
 
-### Confusion Matrix of a second model (with Cost Function: 0, 1.5, 0.5, 0)
+### 8. Confusion Matrix of a second model (with Cost Function: 0, 1.5, 0.5, 0)
 <img src="Plots/ConfusionMatrix_prediction_2nd_model_with_CostFunc.png" />
