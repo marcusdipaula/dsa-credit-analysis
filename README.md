@@ -20,14 +20,14 @@ The features of each attribute (or variable) are its kind/type/characteristic, e
 
 ### Summary
 
-1. Target variable distribution before balancing
-2. Good or Bad credit count (BarPlots) by some categorical variables
-3. Good or Bad credit distribution (BoxPlots) by some categorical variables
-4. Predictors ranking
-5. Choosen variables correlations
-6. AUC of ROC (first model)
-7. Confusion Matrix of a first model
-8. Confusion Matrix of a second model (with Cost Function: 0, 1.5, 0.5, 0)
+1. [Target variable distribution before balancing](#1-target-variable-distribution-before-balancing)
+2. [Good or Bad credit count (BarPlots) by some categorical variables](#2-good-or-bad-credit-count-by-some-categorical-variables)
+3. [Good or Bad credit distribution (BoxPlots) by some categorical variables](#3-good-or-bad-credit-distribution-by-some-categorical-variables)
+4. [Predictors ranking](#4-predictors-ranking)
+5. [Choosen variables correlations](#5-choosen-variables-correlations)
+6. [AUC of ROC (first model)](#6-auc-of-roc-first-model)
+7. [Confusion Matrix of a first model](#7-confusion-matrix-of-the-first-model)
+8. [Confusion Matrix of a second model (with Cost Function: 0, 1.5, 0.5, 0)](#8-confusion-matrix-of-a-second-model-with-cost-function-0-15-05-0)
 
 
 
