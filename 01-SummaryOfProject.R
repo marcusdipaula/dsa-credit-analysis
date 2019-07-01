@@ -52,16 +52,19 @@
 #
 # _________________________________Fundaments_____________________________________ 
 #
-# 1.Problem: How to predict clients as good or bad for credit concession?
-# This is a two class classification task. More information about it can be found 
-# here: https://towardsdatascience.com/machine-learning-classifiers-a5cc4e1b0623
+# 1.Problem: How to predict a good or bad credit concession based on client's profile? 
+# This is a classification task. More information about classification models can be 
+# found here: https://towardsdatascience.com/machine-learning-classifiers-a5cc4e1b0623
 #
 #
 # Context: The approach to this question should consider that it will be presented 
 # to the bank decision makers.
 #
 # We want them to know which entities have the highest correlation to the variable 
-# we want predict.
+# we want to predict.
+#
+# We need to create a generalized model with which they can predict a good or bad credit 
+# concession based on historical client's profile
 # 
 #
 # 2.Entities: Attributes (variables) that could help to predict good or bad credit
