@@ -17,8 +17,11 @@
 # Context: The approach to this question should consider that it will be presented 
 # to the bank decision makers.
 #
-# What we want them to know which entities have the highest correlation to the 
-# variable we want predict.
+# We want them to know which entities have the highest correlation to the variable 
+# we want to predict.
+#
+# We need to create a generalized model with which they can predict a good or bad credit 
+# concession based on historical client's profile
 # 
 #
 # 2.Entities: Attributes (variables) that could help to predict good or bad credit
