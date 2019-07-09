@@ -21,7 +21,7 @@ The features of each attribute (or variable) are its kind/type/characteristic, e
 ### Summary
 
 1. [Target variable distribution before balancing](#1-target-variable-distribution-before-balancing)
-2. [Good or Bad credit count (BarPlots) by some categorical variables](#2-good-or-bad-credit-count-by-some-categorical-variables)
+2. [Good or Bad credit count (BarPlots) by some categorical variables](#2-good-or-bad-credit-count-by-some-categorical-variables-after-balancing)
 3. [Good or Bad credit distribution (BoxPlots) by some categorical variables](#3-good-or-bad-credit-distribution-by-some-categorical-variables)
 4. [Predictors ranking](#4-predictors-ranking)
 5. [Choosen variables correlations](#5-choosen-variables-correlations)
@@ -36,7 +36,7 @@ The features of each attribute (or variable) are its kind/type/characteristic, e
 ### 1. Target variable distribution before balancing
 <img src="Plots/BarPlot_Target_variable_distribution.png" />
 
-### 2. Good or Bad credit count by some categorical variables
+### 2. Good or Bad credit count by some categorical variables after balancing
 
 <img src="Plots/BarPlot_01.png" />
 
