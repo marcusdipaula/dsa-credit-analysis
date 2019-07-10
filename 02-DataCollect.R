@@ -35,12 +35,9 @@
 # (attribute/variable) that represents the historical definition for each concession (row).
 #
 # * Original dataset: https://archive.ics.uci.edu/ml/datasets/Statlog+%28German+Credit+Data%29
-# ** Dataset with addition: link
+# ** Dataset with addition: https://github.com/marcusdipaula/dsa-credit-analysis/blob/master/credit.csv
 
 library(tidyverse)
-
-setwd("F:/FCD/BigDataRAzure/Cap17-20/Mini-Projeto2/dsa-credit-analysis")
-
 
 credit <- read_csv("credit.csv", col_names = c("Checking_Account",
                                                "Duration_Month",
@@ -84,11 +81,11 @@ which(colnames(credit)=="Credit_Rating")
 table(credit[,21])
 
   # attributing a new value to each old value, according to the data dictionary below
-credit[credit[,21]==1, 21] <- c("Good")
+credit[credit[,21]==1, 21] <- c("Good") # alternative: credit[,21] <- ifelse(credit$Credit_Rating==1,"Good","Bad")
 credit[credit[,21]==2, 21] <- c("Bad")
 
   # Converting Credit_Rating to factor
-credit[,21] <- type_convert(credit[,21], col_types = "f")
+credit[,21] <- type_convert(credit[,"Credit_Rating"], col_types = "f")
 
 # Removing the attributes created by read_csv function, as they
 # meant to store how the data was originally read, so it wont be 
@@ -96,31 +93,41 @@ credit[,21] <- type_convert(credit[,21], col_types = "f")
 attr(credit, "spec") <- NULL
 
 # Getting a view on how our dataset is strucured 
-str(credit)
-glimpse(credit)
+# str(credit)
+# glimpse(credit) 
+
+# by factor columns
+# glimpse(credit[ , sapply(credit, is.factor)])
+# str(credit[ , sapply(credit, is.factor)])
+
+# # by integer columns
+# glimpse(credit[ , sapply(credit, is.integer)])
+# str(credit[ , sapply(credit, is.integer)])
+
 
 # Renaming some factors
 credit$Purpose <- recode_factor(credit$Purpose, A43 = "radio_tv",
-                                                A46 = "education",
-                                                A42 = "furniture_equipment",
-                                                A40 = "car_new",
-                                                A41 = "car_used",
-                                                A49 = "business",
-                                                A44 = "domestic_appliances",
-                                                A45 = "repairs",
-                                                A410 = "others",
-                                                A48  = "retraining")
+                                A46 = "education",
+                                A42 = "furniture_equipment",
+                                A40 = "car_new",
+                                A41 = "car_used",
+                                A49 = "business",
+                                A44 = "domestic_appliances",
+                                A45 = "repairs",
+                                A410 = "others",
+                                A48  = "retraining")
 
 credit$Job_Skill <- recode_factor(credit$Job_Skill, A171 = "unskilled_non-resid",
-                                                    A172 = "unskilled_resid",
-                                                    A173 = "skilled",
-                                                    A174 = "highly_skilled")
+                                  A172 = "unskilled_resid",
+                                  A173 = "skilled",
+                                  A174 = "highly_skilled")
 
 credit$Credit_History <- recode_factor(credit$Credit_History, A30 = "no_cred_taken",
-                                                              A31 = "all_cred_paid",
-                                                              A32 = "existing_cred_till_now",
-                                                              A33 = "delay_in_paying_in_past",
-                                                              A34 = "critical_account")
+                                       A31 = "all_cred_paid",
+                                       A32 = "existing_cred_till_now",
+                                       A33 = "delay_in_paying_in_past",
+                                       A34 = "critical_account")
+
 
 
 #### Data dictionary (Original Dataset) ####
