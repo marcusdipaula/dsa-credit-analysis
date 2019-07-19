@@ -340,8 +340,7 @@ lapply(variables_2bars, function(x){
           geom_text(stat='count', aes(label=..count..), vjust=-1) +
           facet_grid(. ~ Credit_Rating) +
           theme(axis.text.x = element_text(angle = 45,
-                                           hjust = 1),
-                axis.title.x = ) +
+                                           hjust = 1) ) +
           ggtitle(paste("Good/Bad credit count by", x)) +
           labs(fill = "Color legend") +
           theme(plot.title = element_text(hjust = 0.5)) }); rm(variables_2bars) # ggsave()
@@ -452,7 +451,7 @@ basicROC <- ggplot(prob_pred,
 basicROC +
   style_roc(theme = theme_grey) +
   theme(axis.text = element_text(colour = "blue")) +
-  ggtitle("ROC and AUC") +
+  ggtitle("AUROC") +
   annotate("text", x = .75, y = .25,
            label = paste("AUC =", round(calc_auc(basicROC)$AUC, 3))) +
   scale_x_continuous("False Positive fraction", breaks = seq(0, 1, by = .1))
