@@ -1,44 +1,38 @@
-# 02-DataCollect
-
 # ---
-# title: Data load
+# script: 02-DataCollect
+# subject: Looking for data and first analysis
 # date: 2019-06-28
 # author: Marcus Di Paula
 # github: github.com/marcusdipaula/
 # linkedin: linkedin.com/in/marcusdipaula/
 # ---
 
+# 2. Looking for data: 
+#     - Identify entities (and its attributes) of the problem 
+#       Entities: Attributes (variables) that could help to predict good or bad credit
+#       concession, such as Job, Housing, Age, Sex, Savings Account, Purpose, Duration, etc
+#       
+#       The features of each attribute (or variable) are its kind/type/characteristic, example: 
+#       Sex: male or female       
+#       
+#     - Collect data that represents entities
+#       Will be used the German credit dataset*, with an addition of a 21th** column 
+#       (attribute/variable) that represents the historical definition for each concession (row).
+#
+#       * Original dataset: https://archive.ics.uci.edu/ml/datasets/Statlog+%28German+Credit+Data%29
+#       ** Dataset with addition: https://github.com/marcusdipaula/dsa-credit-analysis/blob/master/credit.csv
+#
+#     - Which hypotheses could I suppose?
+#     - Explore the data (superficially) to understand it 
+#     - Could I use an algorithm to address the issue or solve it? Which one?
 
-# 1.Problem: How to predict clients as good or bad for credit concession?
-# This is a bivariate classification task. More information about it can be found 
-# here: https://towardsdatascience.com/machine-learning-classifiers-a5cc4e1b0623
-#
-#
-# Context: The approach to this question should consider that it will be presented 
-# to the bank decision makers.
-#
-# We want them to know which entities have the highest correlation to the variable 
-# we want to predict.
-#
-# We need to create a generalized model with which they can predict a good or bad credit 
-# concession based on historical client's profile
-# 
-#
-# 2.Entities: Attributes (variables) that could help to predict good or bad credit
-# concession, such as Job, Housing, Age, Sex, Savings Account, Purpose, Duration, etc
-#
-# The features of each attribute (or variable) are its kind/type/characteristic, example: 
-# - Sex: male or female
-#
-#
-# 3.Data: Will be used the German credit dataset*, with an addition of a 21th** column 
-# (attribute/variable) that represents the historical definition for each concession (row).
-#
-# * Original dataset: https://archive.ics.uci.edu/ml/datasets/Statlog+%28German+Credit+Data%29
-# ** Dataset with addition: https://github.com/marcusdipaula/dsa-credit-analysis/blob/master/credit.csv
 
-library(tidyverse)
 
+# loading the tidyverse packages (and installing it first, if not installed)
+if(!require(tidyverse)) {install.packages("tidyverse"); library(tidyverse)}
+
+
+# loading the dataset
 credit <- read_csv("credit.csv", col_names = c("Checking_Account",
                                                "Duration_Month",
                                                "Credit_History",
