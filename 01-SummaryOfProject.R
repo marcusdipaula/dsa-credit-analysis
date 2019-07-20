@@ -1,7 +1,6 @@
-# 01-SummaryOfProject
-
 # ---
-# title: Project Summary
+# script: 01-SummaryOfProject
+# subject: Project Summary
 # date: 2019-06-28
 # author: Marcus Di Paula
 # github: github.com/marcusdipaula/
@@ -9,75 +8,76 @@
 # ---
 
 
-#### Framework of reference ####
-
-### Fundaments ###
-#
-# 1. Problem definition and comprehension of context
-#
-# 2. Identification of entities and its features
-#
-# 3. Collect data that represents entities
+#### Personal framework for a systematic approach ####
 
 
-### Data Mining/Wrangling ###
+#___________ FUNDAMENTALS ___________#
 #
-# 1. Understand & Tidy the dataset
+# 1. Problem statement and comprehension of the context
+#     - What am I trying to solve?
+#     - Who will benefit of/is asking for this solution?
+#     - What would be the ideal scenario for them?
+#     - How could I use the available data to help them achieve this scenario?
+#     - Why solve this problem? (purpose)
 #
-# 2. Understand & Analyse: hypothesis generation
-#
-# 3. Understand & Transform (Feature Engineering)
-#
-# 4. Data Exploration: hypothesis confirmation
-#
-# 5. Create, train, test, improve a Machine Learning model
-#
-# 6. Iteration
+# 2. Looking for data:
+#     - Identify entities (and its attributes) of the problem
+#     - Collect data that represents entities
+#     - Which hypotheses could I suppose?
+#     - Explore the data (superficially) to understand it
+#     - Could I use an algorithm to address the issue or solve it? Which one?
 
 
-### Data StoryTelling ###
+
+#___________ DATA WRANGLING ___________#
 #
-# 1. Choose appropriate visual
+# 3. Data preparation and Exploration (Feature Engineering orientated to the 4th and 5th phase)
+#     - Is my dataset tidy?
+#     - Is my dataset clean?
+#     - Which correlations exists between all variables and to the target?
+#     - There is any NA in my dataset? If so, how should I treat them? Which effects would it have?
+#     - Should I narrowing in on observations of interest? Which effects would it have?
+#     - Should I reduce my variables? Which effects would it have?
+#     - Should I create new variables that are functions of existing ones? Which effects would it have?
+#     - Should I binning variables? Which effects would it have?
+#     - should I convert variables (categorical = numerical / vv)? Which effects would it have?
+#     - Should I dummy coding categorical variables? Which effects would it have?
+#     - Should I standardize numerical variables? Which effects would it have?
+#     - Can I test my hypotheses?
 #
-# 2. Decluter it
-#
-# 3. Focus attention
-#
-# 4. Think like a designer (UX/UI)
-#
-# 5. Tell the story of data
+# 4. Building and validating models (orientated to the 5th phase)
+#     - Train and test a ML model
+#     - Which performance metrics should I rely on?
+#     - Iteration
 
 
-#### Definitions ####
+
+#___________ DEPLOYING ___________#
 #
-# _________________________________Fundaments_____________________________________ 
+# 5. Deploy
+#     - Data StoryTelling
+#     - How can I deploy the model to production?
+#     - Which strategies should I consider?
+#     - An overview of what should be considered:
+# https://christophergs.github.io/machine%20learning/2019/03/17/how-to-deploy-machine-learning-models/
+
+
+
+#### End of framework ####
+
+
+# 1. Problem statement and comprehension of the context
 #
-# 1.Problem: How to predict a good or bad credit concession based on client's profile? 
-# This is a classification task. More information about classification models can be 
+# How to predict a good or bad credit concession based on client's profile?
+# This is a classification task. More information about classification tasks can be
 # found here: https://towardsdatascience.com/machine-learning-classifiers-a5cc4e1b0623
 #
 #
-# Context: The approach to this question should consider that it will be presented 
+# The approach to this question should consider that it will be presented
 # to the bank decision makers.
 #
-# We want them to know which entities have the highest correlation to the variable 
+# We want them to know which entities have the highest correlation to the variable
 # we want to predict.
 #
-# We need to create a generalized model with which they can predict a good or bad credit 
+# We need to create a generalized model with which they can predict a good or bad credit
 # concession based on historical client's profile
-# 
-#
-# 2.Entities: Attributes (variables) that could help to predict good or bad credit
-# concession, such as Job, Housing, Age, Sex, Savings Account, Purpose, Duration, etc
-#
-# The features of each attribute (or variable) are its kind/type/characteristic, example: 
-# - Sex: male or female
-#
-#
-# 3.Data: Will be used the German credit dataset*, with an addition of a 21th** column 
-# (attribute/variable) that represents the historical definition for each concession (row).
-#
-# * Original dataset: https://archive.ics.uci.edu/ml/datasets/Statlog+%28German+Credit+Data%29
-# ** Dataset with addition: https://github.com/marcusdipaula/dsa-credit-analysis/blob/master/credit.csv
-
-
