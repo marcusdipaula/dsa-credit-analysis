@@ -1,4 +1,4 @@
-# Credit Risk Analysis (mini project) v1.0
+# Credit Risk Analysis (mini project) v2.0
 
 Mini project proposed by the [Data Science Academy](https://www.datascienceacademy.com.br/), regarding credit analysis using R language.
 
@@ -24,10 +24,9 @@ The features of each attribute (or variable) are its kind/type/characteristic, e
 2. [Good or Bad credit count (BarPlots) by some categorical variables](#2-good-or-bad-credit-count-by-some-categorical-variables-after-balancing)
 3. [Good or Bad credit distribution (BoxPlots) by some categorical variables](#3-good-or-bad-credit-distribution-by-some-categorical-variables)
 4. [Predictors ranking](#4-predictors-ranking)
-5. [Choosen variables correlations](#5-choosen-variables-correlations)
-6. [AUC of ROC (first model)](#6-auc-of-roc-first-model)
-7. [Confusion Matrix of a first model](#7-confusion-matrix-of-the-first-model)
-8. [Confusion Matrix of a second model (with Cost Function: 0, 1.5, 0.5, 0)](#8-confusion-matrix-of-a-second-model-with-cost-function-0-15-05-0)
+5. [Variables correlations](#5-variables-correlations)
+6. [AUC of ROC of the 3 models](#6-auc-of-roc-of-the-3-models)
+7. [Confusion Matrix of the 3 models](#7-confusion-matrix-of-the-3-models)
 
 
 
@@ -63,14 +62,31 @@ The features of each attribute (or variable) are its kind/type/characteristic, e
 ### 4. Predictors ranking
 <img src="Plots/Predictors_ranking.png" />
 
-### 5. Choosen variables correlations
+### 5. Variables correlations
 <img src="Plots/Choosen_Variables_Correlations.png" />
 
-### 6. AUC of ROC (first model)
-<img src="Plots/AUROC_first_model.png" />
+<img src="Plots/ggpairs.PNG" />
 
-### 7. Confusion Matrix of the first model
-<img src="Plots/ConfusionMatrix_prediction_1st_model.png" />
+<img src="Plots/ggcorr_variables.PNG" />
 
-### 8. Confusion Matrix of a second model (with Cost Function: 0, 1.5, 0.5, 0)
-<img src="Plots/ConfusionMatrix_prediction_2nd_model_with_CostFunc.png" />
+### 6. AUC of ROC of the 3 models
+
+####Random Forest algorithm
+<img src="Plots/ROC_model_rf_v2.png" />
+
+####Generalized Linear Model with Stepwise Feature Selection algorithm
+<img src="Plots/ROC_model_glmStepAIC.png" />
+
+####AdaBoost Classification Trees algorithm
+<img src="Plots/ROC_model_adaboost.png" />
+
+### 7. Confusion Matrix of the 3 models
+
+####Random Forest algorithm
+<img src="Plots/ConfusionMatrix_model_rf_v2.PNG" />
+
+####Generalized Linear Model with Stepwise Feature Selection algorithm
+<img src="Plots/ConfusionMatrix_model_glmStepAIC.PNG" />
+
+####AdaBoost Classification Trees algorithm
+<img src="Plots/ConfusionMatrix_model_adaboost.PNG" />
