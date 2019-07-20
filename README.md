@@ -71,22 +71,22 @@ The features of each attribute (or variable) are its kind/type/characteristic, e
 
 ### 6. AUC of ROC of the 3 models
 
-####Random Forest algorithm
+#### Random Forest algorithm
 <img src="Plots/ROC_model_rf_v2.png" />
 
-####Generalized Linear Model with Stepwise Feature Selection algorithm
+#### Generalized Linear Model with Stepwise Feature Selection algorithm
 <img src="Plots/ROC_model_glmStepAIC.png" />
 
-####AdaBoost Classification Trees algorithm
+#### AdaBoost Classification Trees algorithm
 <img src="Plots/ROC_model_adaboost.png" />
 
 ### 7. Confusion Matrix of the 3 models
 
-####Random Forest algorithm
+#### Random Forest algorithm
 <img src="Plots/ConfusionMatrix_model_rf_v2.PNG" />
 
-####Generalized Linear Model with Stepwise Feature Selection algorithm
+#### Generalized Linear Model with Stepwise Feature Selection algorithm
 <img src="Plots/ConfusionMatrix_model_glmStepAIC.PNG" />
 
-####AdaBoost Classification Trees algorithm
+#### AdaBoost Classification Trees algorithm
 <img src="Plots/ConfusionMatrix_model_adaboost.PNG" />
