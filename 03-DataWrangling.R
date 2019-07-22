@@ -23,14 +23,65 @@
 #     - Can I test my hypotheses?
 
 
-# variables to control exploration and the binding of some variables
-want_to_explore <- FALSE # There is an exploration before and after the creation of groups
+# variables to control the exploration
+want_to_explore <- FALSE 
+want_to_explore_balanced_target <- FALSE
 
 
 
 
-if(want_to_explore){
-          
+# Grouping some numerical variables
+# so it will be easy to plot them by Credit_Rating
+
+  # Viewing summary of Duration_Month, Credit_Amount and Age variables
+  # to have notion of its distribution (I'd like to group them into just a few groups)
+summary(credit$Age)
+summary(credit$Duration_Month)
+summary(credit$Credit_Amount)
+quantile(credit$Credit_Amount)
+
+# Creating groups for each variable desired (Age, Duration_Month and Credit_Amount)
+    # Age groups
+Age_groups <- c(paste(seq(15, 75, by = 15), seq(30-1, 90, by = 15), sep = "-"))
+
+    # Month duration groups
+Duration_Month_groups <- c("0-12","13-24","25-36","37-48","49-60","61-72")
+    # Duration_Month_Group <- c(paste(seq(4, 72, by = 14), seq(18-1, 75, by = 14), sep = "-"))
+    # the above is an alternative, but the groups don't make sense in terms of real accounting periods
+
+    # Requested amount of credit groups
+Credit_Amount_groups <- c("250-1364", "1365-2318", "2319-3971", "3972-18424")
+    # split according to quantile function result
+
+
+  # Adding the groups to dataset
+credit$Age_groups <- cut(credit$Age,
+                         breaks = c(seq(15, 75, by = 15), Inf),
+                         labels = Age_groups,
+                         right = FALSE); rm(Age_groups)
+
+
+credit$Duration_Month_groups <- cut(credit$Duration_Month,
+                                    breaks = c(c(0, 13, 25, 37, 49, 61), Inf),
+                                    labels = Duration_Month_groups,
+                                    right = FALSE); rm(Duration_Month_groups)
+
+
+credit$Credit_Amount_groups <- cut(credit$Credit_Amount,
+                                   breaks = c(250, 1365, 2319, 3972, Inf),
+                                   labels = Credit_Amount_groups,
+                                   right = FALSE); rm(Credit_Amount_groups)
+
+
+
+
+
+#______________________________________Visual_Exploration______________________________________#
+
+
+if(want_to_explore) {
+  
+  
           # loading the plotly package (and installing it first, if not installed)
           if(!require(plotly)) {install.packages("plotly"); library(plotly)}
           
@@ -38,62 +89,14 @@ if(want_to_explore){
           credit %>%
             select(Credit_Rating) %>%
               table() %>%
-               as_tibble() %>%
-                `colnames<-`(c("Rating","Count")) %>%
-                  ggplot(aes(Rating, Count, fill = Rating)) +
-                    geom_bar(stat = "identity") +
-                    labs(title = "Target variable distribution") +
-                    theme( plot.title = element_text(hjust = 0.5))
-                  ggplotly()
-                  
-          # Grouping some numerical variables
-          # so it will be easy to plot them by Credit_Rating
+                as_tibble() %>%
+                  `colnames<-`(c("Rating","Count")) %>%
+            ggplot(aes(Rating, Count, fill = Rating)) +
+            geom_bar(stat = "identity") +
+            labs(title = "Target variable distribution") +
+            theme( plot.title = element_text(hjust = 0.5))
+          ggplotly()
           
-            # Viewing summary of Duration_Month, Credit_Amount and Age variables
-            # to have notion of its distribution (I'd like to group them into just a few groups)
-          summary(credit$Age)
-          summary(credit$Duration_Month)
-          summary(credit$Credit_Amount)
-          quantile(credit$Credit_Amount)
-          }
-
-
-
-            # Creating groups for each variable desired (Age, Duration_Month and Credit_Amount)
-              # Age groups
-          Age_groups <- c(paste(seq(15, 75, by = 15), seq(30-1, 90, by = 15), sep = "-"))
-          
-              # Month duration groups
-          Duration_Month_groups <- c("0-12","13-24","25-36","37-48","49-60","61-72")
-              # Duration_Month_Group <- c(paste(seq(4, 72, by = 14), seq(18-1, 75, by = 14), sep = "-"))
-              # the above is an alternative, but the groups don't make sense in terms of real accounting periods
-          
-              # Requested amount of credit groups
-          Credit_Amount_groups <- c("250-1364", "1365-2318", "2319-3971", "3972-18424")
-              # split according to quantile function result
-          
-          
-            # Adding the groups to dataset
-          credit$Age_groups <- cut(credit$Age,
-                                   breaks = c(seq(15, 75, by = 15), Inf),
-                                   labels = Age_groups,
-                                   right = FALSE); rm(Age_groups)
-          
-          
-          credit$Duration_Month_groups <- cut(credit$Duration_Month,
-                                              breaks = c(c(0, 13, 25, 37, 49, 61), Inf),
-                                              labels = Duration_Month_groups,
-                                              right = FALSE); rm(Duration_Month_groups)
-          
-          
-          credit$Credit_Amount_groups <- cut(credit$Credit_Amount,
-                                             breaks = c(250, 1365, 2319, 3972, Inf),
-                                             labels = Credit_Amount_groups,
-                                             right = FALSE); rm(Credit_Amount_groups)
-          
-
-
-if(want_to_explore) {
   
           # Looking the number of Credit_Rating by age groups
           credit %>%
@@ -137,12 +140,12 @@ if(want_to_explore) {
           
           
             # Variables to plot bars
-          variables_2bars <- c(colnames(credit[, sapply(credit, is.factor)] ))
+          variables_2bars <- c(colnames(credit[, sapply(credit, is.factor)] %>% select(-Credit_Rating) ))
           
           
             # bar plot
           lapply(variables_2bars, function(x){
-                                    ggplot(subset_balanced, aes_string(x, fill = x)) +
+                                    ggplot(credit, aes_string(x, fill = x)) +
                                     geom_bar() +
                                     geom_text(stat='count', aes(label=..count..), vjust=-1) +
                                     facet_grid(. ~ Credit_Rating) +
@@ -158,10 +161,7 @@ if(want_to_explore) {
           
           
             # Variables to plot boxes
-          variables_2boxes <- c("Age_groups", 
-                                "Purpose", 
-                                "Job_Skill", 
-                                "Credit_History")
+          variables_2boxes <- c(colnames(credit[, sapply(credit, is.factor)] %>% select(-Credit_Rating) ))
           
             # boxplot
           lapply(variables_2boxes, function(x){
@@ -182,12 +182,12 @@ if(want_to_explore) {
           # png("Correlations.png", width = 1720, height = 1080)
           # psych::pairs.panels(credit[,c(1:21)])
           # dev.off()
-          } 
+          } rm(want_to_explore)
 
 
-if(want_to_explore) {
+if(want_to_explore_balanced_target) {
+  
             # Manualy balancing
-            
             # Subseting all Credit_Rating "Bad", since it has the small portion of both options(Good/Bad)
             subset_bad <- credit %>%
                             filter(Credit_Rating %in% "Bad")
@@ -214,13 +214,7 @@ if(want_to_explore) {
             # Ploting after balancing
             
             # Variables to plot bars
-            variables_2bars <- c(colnames(credit[, 
-                                                 sapply(credit, 
-                                                        is.factor
-                                                        )
-                                                 ]
-                                          )
-                                 )
+            variables_2bars <- c(colnames(credit[, sapply(credit, is.factor)] %>% select(-Credit_Rating)))
             
             
             # bar plot
@@ -237,10 +231,7 @@ if(want_to_explore) {
             
             
             # Variables to plot boxes
-            variables_2boxes <- c("Age_groups", 
-                                  "Purpose", 
-                                  "Job_Skill", 
-                                  "Credit_History")
+            variables_2boxes <- c(colnames(credit[, sapply(credit, is.factor)] %>% select(-Credit_Rating)))
             
             # boxplot
             lapply(variables_2boxes, function(x){
@@ -253,26 +244,4 @@ if(want_to_explore) {
                       labs(fill = "Color legend") +
                       theme(plot.title = element_text(hjust = 0.5)) }); rm(variables_2boxes) # ggsave()
             
-            } ; rm(want_to_explore)
-
-
-
-# # Test with c50 algorithm, with costs associated with the possible errors
-# # install.packages("C50")
-# library(C50)
-# 
-# Cost_func <- matrix(c(0, 1.5, 0.5, 0), # 0, 1.5, 0, 0
-#                     nrow = 2,
-#                     dimnames = list(c("Good", "Bad"), c("Good", "Bad")))
-# 
-# model_c50  <- C5.0(Credit_Rating ~ Checking_Account +
-#                                      Duration_Month +
-#                                      Credit_History +
-#                                      Credit_Amount +
-#                                      Savings_Account +
-#                                      Property +
-#                                      Employment,
-#                      data = train_subset,
-#                      trials = 100,
-#                      costs = Cost_func); rm(Cost_func)
-
+            } ; rm(want_to_explore_balanced_target, subset_balanced)
