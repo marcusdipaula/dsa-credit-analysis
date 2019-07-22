@@ -66,8 +66,8 @@ credit <- read_csv("credit.csv", col_names = c("Checking_Account",
                                                  Credit_Rating = "i"))
 
 # Changing values of Credit_Rating to convert it to factor
-  # which is the number of the column Credit_Rating?
-which(colnames(credit)=="Credit_Rating") 
+  # what is the number of the column Credit_Rating?
+  # which(colnames(credit)=="Credit_Rating") 
   # alternative: match("Credit_Rating", names(credit))
   # alternative: grep("Credit_Rating", colnames(credit))
 
