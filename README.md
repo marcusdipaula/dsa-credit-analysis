@@ -20,22 +20,69 @@ The features of each attribute (or variable) are its kind/type/characteristic, e
 
 ### Summary
 
-1. [Target variable distribution before balancing](#1-target-variable-distribution-before-balancing)
-2. [Good or Bad credit count (BarPlots) by some categorical variables](#2-good-or-bad-credit-count-by-some-categorical-variables-after-balancing)
-3. [Good or Bad credit distribution (BoxPlots) by some categorical variables](#3-good-or-bad-credit-distribution-by-some-categorical-variables)
-4. [Predictors ranking](#4-predictors-ranking)
-5. [Variables correlations](#5-variables-correlations)
-6. [AUC of ROC of the 3 models](#6-auc-of-roc-of-the-3-models)
-7. [Confusion Matrix of the 3 models](#7-confusion-matrix-of-the-3-models)
+1. [Personal framework for a systematic approach](#1-personal-framework-for-a-systematic-approach)
+2. [Target variable distribution before balancing](#2-target-variable-distribution-before-balancing)
+3. [Good or Bad credit count (BarPlots) by some categorical variables](#3-good-or-bad-credit-count-by-some-categorical-variables-after-balancing)
+4. [Good or Bad credit distribution (BoxPlots) by some categorical variables](#4-good-or-bad-credit-distribution-by-some-categorical-variables)
+5. [Predictors ranking](#5-predictors-ranking)
+6. [Variables correlations](#6-variables-correlations)
+7. [AUC of ROC of the 3 models](#7-auc-of-roc-of-the-3-models)
+8. [Confusion Matrix of the 3 models](#8-confusion-matrix-of-the-3-models)
+9. [AUROC comparison](#9-auroc-comparison)
 
 
 
-## Here are some results of this short analysis:
+### 1. Personal framework for a systematic approach
 
-### 1. Target variable distribution before balancing
+#### FUNDAMENTALS
+
+1. Problem statement and comprehension of the context
+    - What am I trying to solve?
+    - Who will benefit of/is asking for this solution?
+    - What would be the ideal scenario for them?
+    - How could I use the available data to help them achieve this scenario?
+    - Why solve this problem? (purpose)
+
+2. Looking for data:
+    - Identify entities (and its attributes) of the problem
+    - Collect data that represents entities
+    - Which hypotheses could I suppose?
+    - Explore the data (superficially) to understand it
+    - Could I use an algorithm to address the issue or solve it? Which one?
+
+#### DATA WRANGLING
+
+3. Data preparation and Exploration (Feature Engineering orientated to the 4th and 5th phase)
+    - Is my dataset tidy?
+    - Is my dataset clean?
+    - Which correlations exists between all variables and to the target?
+    - There is any NA in my dataset? If so, how should I treat them? Which effects would it have?
+    - Should I narrowing in on observations of interest? Which effects would it have?
+    - Should I reduce my variables? Which effects would it have?
+    - Should I create new variables that are functions of existing ones? Which effects would it have?
+    - Should I binning variables? Which effects would it have?
+    - should I convert variables (categorical = numerical / vv)? Which effects would it have?
+    - Should I dummy coding categorical variables? Which effects would it have?
+    - Should I standardize numerical variables? Which effects would it have?
+    - Can I test my hypotheses?
+
+4. Building and validating models (orientated to the 5th phase)
+    - Train and test a ML model
+    - Which performance metrics should I rely on?
+    - Iteration
+
+#### DEPLOYING
+
+5. Deploy
+    - Data StoryTelling
+    - How can I deploy the model to production?
+    - Which strategies should I consider?
+    - [An overview of what should be considered](https://christophergs.github.io/machine%20learning/2019/03/17/how-to-deploy-machine-learning-models/)
+
+### 2. Target variable distribution before balancing
 <img src="Plots/BarPlot_Target_variable_distribution.png" />
 
-### 2. Good or Bad credit count by some categorical variables after balancing
+### 3. Good or Bad credit count by some categorical variables after balancing
 
 <img src="Plots/BarPlot_01.png" />
 
@@ -47,7 +94,7 @@ The features of each attribute (or variable) are its kind/type/characteristic, e
 
 <img src="Plots/BarPlot_05.png" />
 
-### 3. Good or Bad credit distribution by some categorical variables
+### 4. Good or Bad credit distribution by some categorical variables
 
 <img src="Plots/BoxPlot_01.png" />
 
@@ -59,17 +106,17 @@ The features of each attribute (or variable) are its kind/type/characteristic, e
 
 ## Some analysis on feature selection, correlations and ROC curve of a first and second models
 
-### 4. Predictors ranking
+### 5. Predictors ranking
 <img src="Plots/Predictors_ranking.png" />
 
-### 5. Variables correlations
+### 6. Variables correlations
 <img src="Plots/Choosen_Variables_Correlations.png" />
 
 <img src="Plots/ggpairs.PNG" />
 
 <img src="Plots/ggcorr_variables.PNG" />
 
-### 6. AUC of ROC of the 3 models
+### 7. AUC of ROC of the 3 models
 
 #### Random Forest algorithm
 <img src="Plots/ROC_model_rf_v2.png" />
@@ -80,7 +127,7 @@ The features of each attribute (or variable) are its kind/type/characteristic, e
 #### AdaBoost Classification Trees algorithm
 <img src="Plots/ROC_model_adaboost.png" />
 
-### 7. Confusion Matrix of the 3 models
+### 8. Confusion Matrix of the 3 models
 
 #### Random Forest algorithm
 <img src="Plots/ConfusionMatrix_model_rf_v2.PNG" />
@@ -90,3 +137,6 @@ The features of each attribute (or variable) are its kind/type/characteristic, e
 
 #### AdaBoost Classification Trees algorithm
 <img src="Plots/ConfusionMatrix_model_adaboost.PNG" />
+
+### 9. AUROC comparison
+<img src="Plots/AUROC_comparison.png" />
