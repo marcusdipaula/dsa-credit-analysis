@@ -33,13 +33,13 @@ train <- credit[index,]
 test <- credit[-index,]; rm(index)
 
 # Looking at the distribution of the target variable
-table(train$Credit_Rating) # unbalanced, so we should take care of it before or while fiting the model 
+table(train$Credit_Rating) # unbalanced, so we should take care of it before or while fiting the model
                            # I'll do it through the training control bellow
 
 # proportion of the imbalance
 prop.table(table(train$Credit_Rating))
 
-#_______________________________________Train_Control______________________________________# 
+#_______________________________________Train_Control______________________________________#
 
 # Setting up control parameters to training models
 # More at: http://topepo.github.io/caret/model-training-and-tuning.html#basic-parameter-tuning
@@ -47,25 +47,25 @@ prop.table(table(train$Credit_Rating))
 train_control <- trainControl(method = "repeatedcv", # the resampling method, repeated k-fold cross-validation.
                               # Repeated k-fold cross validation is preferred when you can afford the computational
                               # expense and require a less biased estimate.
-                              
-                              number = 5, # the number of folds in K-fold cross-validation, so we have 5-fold 
+
+                              number = 5, # the number of folds in K-fold cross-validation, so we have 5-fold
                               # cross-validations
-                              
+
                               repeats = 3, # repetitions of the previous k-fold cross-validation, so we have
                               # 3 repetitions of 5-fold cross-validations
                               # An illustration: https://www.evernote.com/l/AGKmXIbis1dHSbR_j9dblVk-t3klmWsL_i0/
-                              
+
                               search = "random", # a random sample of possible tuning parameter combinations
                               # More at: http://topepo.github.io/caret/random-hyperparameter-search.html
-                              
+
                               classProbs = TRUE, # an alternative to get probabilities, if any method used in train
-                              # doesn't support this parameter, would be to use the extractProb(), the same way 
+                              # doesn't support this parameter, would be to use the extractProb(), the same way
                               # as we use predict(). See more on ?extractProb
-                              
-                              sampling = "smote" # the type of additional sampling that is conducted after 
+
+                              sampling = "smote" # the type of additional sampling that is conducted after
                               # resampling due to the target variable class imbalance
                               # More at: https://topepo.github.io/caret/subsampling-for-class-imbalances.html
-                              
+
                               )
 
 # trainControl function has an "allowParallel" parameter, you can see more at:
@@ -75,297 +75,331 @@ train_control <- trainControl(method = "repeatedcv", # the resampling method, re
 # http://dept.stat.lsa.umich.edu/~jerrick/courses/stat701/notes/parallel.html
 
 
-#_______________________________________Algorithm_01______________________________________# 
+#_______________________________________Algorithm_01______________________________________#
 
 # Random Forest algorithm
-# 
+#
 # Caret method: 'rf'
-# 
+#
 # Type: Classification, Regression
-# 
+#
 # Tags (types or relevant characteristics according to the caret package guide):
 # Bagging, Ensemble Model, Implicit Feature Selection, Random Forest, Supports Class Probabilities
-# 
+#
 # Tuning parameters: mtry (#Randomly Selected Predictors)
-# 
+#
 # Required packages: randomForest
-# 
+#
 # More info: A model-specific variable importance metric is available.
 #
 # Link to know more: http://topepo.github.io/caret/
 
 model_rf <- train(Credit_Rating ~ ., # formula: "TARGET ~ PREDICTORS" (the dot mean all variables, except the target)
-                  
+
                   data = train, # the dataset to fit the model
-                  
+
                   method = "rf", # the caret method for this algorithm
-                  
+
                   trControl = train_control, # the control parameters setted above
-                  
+
                   tuneLength = 5, # the total number of random unique combinations to tune parameters
                                   # more at: http://topepo.github.io/caret/random-hyperparameter-search.html
-                  
-                  metric = "Kappa" # in problems where there are a low percentage of samples in one 
+
+                  metric = "Kappa" # in problems where there are a low percentage of samples in one
                   # class, using metric = "Kappa" can improve quality of the final model
                   )
 
 if(want_to_explore_models_results) {
-  
+
               # Printing the model
               print(model_rf)
-              
+
               # Looking at the final model
               print(model_rf$finalModel)
-              
+
               # Ploting the tuning parameters (the randomly selected predictors by the metric used)
               plot(model_rf)
-              
+
               # Getting probabilities and raw predictions together
               prob_pred_rf <- bind_cols(
-                                
+
                                       predict.train(model_rf,
                                                     newdata = test,
                                                     type = "prob"
                                                     ),
-                                      
+
                                       tibble(historical = test$Credit_Rating,
                                              predicted = predict.train(model_rf,
                                                                        newdata = test)
                                              )
-                                      
+
                                          ) %>% as_tibble
-              
-              
+
+
               # Confusion matrix of predictions
               confusionMatrix(data = prob_pred_rf$predicted,
                               reference = prob_pred_rf$historical)
-              
-              
-              # Ploting the AUROC
-              
+
+
+              # Ploting the AUROC (Area Under Receiver Operating Characteristic Curve)
+
               # Loading plotROC package (and installint it before, if not installed)
               if(!require(plotROC)) {install.packages("plotROC"); library(plotROC)}
               # More info about this package at:
               # https://cran.r-project.org/web/packages/plotROC/vignettes/examples.html
-              
+
               # Basic ROC plot
-              basic_ROC_plot <- ggplot(prob_pred_rf,
+              basic_ROC_plot_rf <- ggplot(prob_pred_rf,
                                        aes(d = historical,
                                            m = Good)) +
-                                      geom_roc() + 
+                                      geom_roc() +
                                       style_roc(theme = theme_grey)
-              
+
               # ROC plot with the AUC calculated
-              basic_ROC_plot +
+              basic_ROC_plot_rf +
                 annotate("text", x = .75, y = .25,
-                         label = paste("AUC =", round(calc_auc(basic_ROC_plot)$AUC, 4))
-                         ); rm(basic_ROC_plot)
+                         label = paste("AUC =", round(calc_auc(basic_ROC_plot_rf)$AUC, 4))
+                         )
               }
 
 #Saving the model to deploy to production
-saveRDS(object = model_rf, 
+saveRDS(object = model_rf,
         file = "./models/model_rf.RDS")
 
 
 
-#_______________________________________Algorithm_02______________________________________# 
+#_______________________________________Algorithm_02______________________________________#
 
 # Generalized Linear Model with Stepwise Feature Selection algorithm
-# 
+#
 # Caret method: 'glmStepAIC'
-# 
+#
 # Type: Regression, Classification
-# 
+#
 # Tags (types or relevant characteristics according to the caret package guide):
 # Accepts Case Weights, Feature Selection Wrapper, Generalized Linear Model, Implicit Feature Selection
 # Linear Classifier, Supports Class Probabilities, Two Class Only
-# 
+#
 # Tuning parameters: No tuning parameters for this model
-# 
+#
 # Required packages: MASS
 #
 # Link to know more: http://topepo.github.io/caret/
 
 model_glmStepAIC <-  train(Credit_Rating ~ ., # formula: "TARGET ~ PREDICTORS" (the dot mean all variables, except the target)
-                         
+
                            data = train, # the dataset to fit the model
-                           
+
                            method = "glmStepAIC", # the caret method for this algorithm
-                           
+
                            trControl = train_control, # the control parameters setted above
-                           
+
                            # tuneLength = 5, # since this model has no tuning parameters, this line is suppressed of the train
                            # more at: http://topepo.github.io/caret/random-hyperparameter-search.html
                            # about the lack of tuning parameters: http://topepo.github.io/caret/train-models-by-tag.html
-                           
-                           metric = "Kappa", # in problems where there are a low percentage of samples in one 
+
+                           metric = "Kappa", # in problems where there are a low percentage of samples in one
                            # class, using metric = "Kappa" can improve quality of the final model
                           )
 
 if(want_to_explore_models_results) {
-  
+
               # Printing the model
               print(model_glmStepAIC)
-              
+
               # Getting probabilities and raw predictions together
               prob_pred_glmStepAIC <- bind_cols(
-                
+
                                             predict.train(model_glmStepAIC,
                                                           newdata = test,
                                                           type = "prob"
                                                           ),
-                                            
+
                                             tibble(historical = test$Credit_Rating,
                                                    predicted = predict.train(model_glmStepAIC,
                                                                              newdata = test)
                                                    )
-                                                
+
                                                 ) %>% as_tibble
-              
-              
+
+
               # Confusion matrix of predictions
               confusionMatrix(data = prob_pred_glmStepAIC$predicted,
                               reference = prob_pred_glmStepAIC$historical)
-              
-              
-              # Ploting the AUROC
-              
+
+
+              # Ploting the AUROC (Area Under Receiver Operating Characteristic Curve)
+
               # Loading plotROC package (and installint it before, if not installed)
               if(!require(plotROC)) {install.packages("plotROC"); library(plotROC)}
               # More info about this package at:
               # https://cran.r-project.org/web/packages/plotROC/vignettes/examples.html
-              
+
               # Basic ROC plot
-              basic_ROC_plot <- ggplot(prob_pred_glmStepAIC,
-                                       aes(d = historical,
-                                           m = Good)) +
-                                geom_roc() + 
-                                style_roc(theme = theme_grey)
-              
+              basic_ROC_plot_glmStepAIC <- ggplot(prob_pred_glmStepAIC,
+                                                  aes(d = historical,
+                                                      m = Good)) +
+                                           geom_roc() +
+                                           style_roc(theme = theme_grey)
+
               # ROC plot with the AUC calculated
-              basic_ROC_plot +
+              basic_ROC_plot_glmStepAIC +
                     annotate("text", x = .75, y = .25,
-                             label = paste("AUC =", round(calc_auc(basic_ROC_plot)$AUC, 4))
+                             label = paste("AUC =", round(calc_auc(basic_ROC_plot_glmStepAIC)$AUC, 4))
                             ); rm(basic_ROC_plot)
             }
 
 #Saving the model to deploy to production
-saveRDS(object = model_glmStepAIC, 
+saveRDS(object = model_glmStepAIC,
         file = "./models/model_glmStepAIC.RDS")
 
 
 
 
 
-#_______________________________________Algorithm_03______________________________________# 
+#_______________________________________Algorithm_03______________________________________#
 
 # AdaBoost Classification Trees algorithm
-# 
+#
 # Caret method: 'adaboost'
-# 
+#
 # Type: Classification
-# 
+#
 # Tags (types or relevant characteristics according to the caret package guide):
 # Boosting, Ensemble Model, Implicit Feature Selection, Supports Class Probabilities
 # Tree-Based Model, Two Class Only
-# 
+#
 # Tuning parameters: nIter (#Trees), method (Method)
-# 
+#
 # Required packages: fastAdaboost
 #
 # Link to know more: http://topepo.github.io/caret/
 
 
 model_adaboost <- train(Credit_Rating ~ ., # formula: "TARGET ~ PREDICTORS" (the dot mean all variables, except the target)
-                        
+
                         data = train, # the dataset to fit the model
-                        
+
                         method = "adaboost", # the caret method for this algorithm
-                        
+
                         trControl = train_control, # the control parameters setted above
-                        
+
                         tuneLength = 5, # the total number of random unique combinations to tune parameters
                         # more at: http://topepo.github.io/caret/random-hyperparameter-search.html
-                        
-                        metric = "Kappa" # in problems where there are a low percentage of samples in one 
+
+                        metric = "Kappa" # in problems where there are a low percentage of samples in one
                         # class, using metric = "Kappa" can improve quality of the final model
                         )
 
 if(want_to_explore_models_results) {
-  
+
               # Printing the model
               print(model_adaboost)
-              
+
               # Looking at the final model
               print(model_adaboost$finalModel)
-              
+
               # Ploting the tuning parameters (the randomly selected predictors by the metric used)
               plot(model_adaboost)
-              
+
               # Getting probabilities and raw predictions together
               prob_pred_adaboost <- bind_cols(
-                
+
                                           predict.train(model_adaboost,
                                                         newdata = test,
                                                         type = "prob"
                                                         ),
-                                          
+
                                           tibble(historical = test$Credit_Rating,
                                                  predicted = predict.train(model_adaboost,
                                                                            newdata = test
                                                                            )
                                                  )
-                                          
+
                                               ) %>% as_tibble
-              
-              
+
+
               # Confusion matrix of predictions
               confusionMatrix(data = prob_pred_adaboost$predicted,
                               reference = prob_pred_adaboost$historical)
-              
-              
-              # Ploting the AUROC
-              
+
+
+              # Ploting the AUROC (Area Under Receiver Operating Characteristic Curve)
+
               # Loading plotROC package (and installint it before, if not installed)
               if(!require(plotROC)) {install.packages("plotROC"); library(plotROC)}
               # More info about this package at:
               # https://cran.r-project.org/web/packages/plotROC/vignettes/examples.html
-              
+
               # Basic ROC plot
-              basic_ROC_plot <- ggplot(prob_pred_adaboost,
-                                       aes(d = historical,
-                                           m = Good)) +
-                                      geom_roc() + 
-                                      style_roc(theme = theme_grey)
-              
+              basic_ROC_plot_adaboost <- ggplot(prob_pred_adaboost,
+                                                aes(d = historical,
+                                                     m = Good)) +
+                                                geom_roc() +
+                                                style_roc(theme = theme_grey)
+
               # ROC plot with the AUC calculated
-              basic_ROC_plot +
+              basic_ROC_plot_adaboost +
                 annotate("text", x = .75, y = .25,
-                         label = paste("AUC =", round(calc_auc(basic_ROC_plot)$AUC, 4))
-                        ); rm(basic_ROC_plot)
-            
+                         label = paste("AUC =", round(calc_auc(basic_ROC_plot_adaboost)$AUC, 4))
+                        )
+
               }; rm(want_to_explore_models_results)
 
 #Saving the model to deploy to production
-saveRDS(object = model_adaboost, 
+saveRDS(object = model_adaboost,
         file = "./models/model_adaboost.RDS")
 
 
 
 
 
-#_______________________________________Selecting_Model______________________________________# 
+#_______________________________________Selecting_Model______________________________________#
 
 
+# creating a dataset with the true positive probability estimation of every model + the historical value
+# Remember: if the probability is less than .5, the model estimates as "Bad", if higher, estimates as "Good"
+prob_comparison   <- melt_roc(prob_pred_rf %>%
+                              select(Good, historical) %>%
+                              `colnames<-`(c("rf","Historical")) %>%
+
+                              bind_cols(
+                                        prob_pred_glmStepAIC %>%
+                                        select(Good) %>%
+                                        `colnames<-`("glmStepAIC"),
+
+                                        prob_pred_adaboost %>%
+                                        select(Good) %>%
+                                        `colnames<-`("adaboost")
+                                        ),
+
+                                "Historical", c("rf",
+                                                "glmStepAIC",
+                                                "adaboost" )
+                              ) %>%
+
+                      as_tibble() %>%
+                        select(-D.Historical.1, - D.Historical.2) %>%
+                          `colnames<-`(c("Historical","Probs", "Algorithm"))
 
 
+# Ploting AUROC comparison and removing the basic ROC plots after it
+ggplot(prob_comparison,
+       aes(d = Historical,
+           m = Probs,
+           color = Algorithm)) +
+  geom_roc(n.cuts = 0) +
+  style_roc(theme = theme_grey) +
+  annotate("text", x = 0.625, y = 0.375,
+           label = paste("AUC adaboost =", round(calc_auc(basic_ROC_plot_adaboost)$AUC, 4), "\n",
+                         "AUC glmStepAIC =", round(calc_auc(basic_ROC_plot_glmStepAIC)$AUC, 4), "\n",
+                         "AUC rf =", round(calc_auc(basic_ROC_plot_rf)$AUC, 4)), fontface="italic" ); rm(
+
+                          basic_ROC_plot_adaboost,
+                          basic_ROC_plot_glmStepAIC,
+                          basic_ROC_plot_rf
+
+                         )
 
 
-
-
-
-
-
-
-
-
+# The winner is the adaboost, with an AUROC of 0.8017 on the test set
