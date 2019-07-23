@@ -43,6 +43,7 @@ prop.table(table(train$Credit_Rating))
 
 # Setting up control parameters to training models
 # More at: http://topepo.github.io/caret/model-training-and-tuning.html#basic-parameter-tuning
+# https://www.rdocumentation.org/packages/caret/versions/6.0-84/topics/trainControl
 
 train_control <- trainControl(method = "repeatedcv", # the resampling method, repeated k-fold cross-validation.
                               # Repeated k-fold cross validation is preferred when you can afford the computational
